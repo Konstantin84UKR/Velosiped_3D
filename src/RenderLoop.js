@@ -56,7 +56,7 @@ export default class RenderLoop {
     async initShaders() {
 
         const material = new Material();
-        const shaderProgram = await material.getShaderProgram(this.gl, '/shaders/vs_basic.glsl', '/shaders/fs_basic.glsl');
+        const shaderProgram = await material.getShaderProgram(this.gl, '../shaders/vs_basic.glsl', '../shaders/fs_basic.glsl');
         material.Shader = shaderProgram;
         // const shaderProgram = await createPromiseShaderProgram(this.gl, 'resource/shaders/vs_basic.glsl', 'resource/shaders/fs_basic.glsl');
         // this.gl.useProgram(shaderProgram); loadJSON(gl, 'resource/Model.json')
