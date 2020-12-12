@@ -7,6 +7,7 @@ export default class Material {
         this.gl = gl;
         this.shader = []; // shader program
         this.texture = []; // texture set
+        this.color = [1.0, 0.5, 0.0, 1.0];
         //this.shader.push(getShaderProgram(gl,VS_src, FS_src));
     }
 

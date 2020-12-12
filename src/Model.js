@@ -9,7 +9,7 @@ export default class Model {
         this.mesh = [];
         this.material = [];
         this.position = vec3.create();
-        //this.mMatrix = mat4.create();
+        this.rotation = vec3.create();
     }
 
     set Mesh(m) {
@@ -19,12 +19,21 @@ export default class Model {
     set Material(m) {
         this.material.push(m);
     }
-    positionSet(x, y, z) {
-        vec3.set(this.position, x, y, z);
+    positionSet(v) {
+        vec3.add(this.position, this.position, v);
+        //vec3.set(this.position, x, y, z);
+        //this.position = ;
+    }
+    rotationSet(v) {
+        //  vec3.set(this.rotation, x, y, z);
+        vec3.add(this.rotation, this.rotation, v);
         //this.position = ;
     }
     mMatrix() {
         let mMatrix = mat4.create();
+        mat4.rotateX(mMatrix, mMatrix, this.rotation[0]);
+        mat4.rotateY(mMatrix, mMatrix, this.rotation[1]);
+        mat4.rotateZ(mMatrix, mMatrix, this.rotation[2]);
         mat4.translate(mMatrix, mMatrix, this.position);
         return mMatrix;
     }

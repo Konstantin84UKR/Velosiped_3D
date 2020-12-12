@@ -58,6 +58,18 @@ export default class RenderLoop {
         const material = new Material();
         const shaderProgram = await material.getShaderProgram(this.gl, '/src/shaders/vs_basic.glsl', '/src/shaders/fs_basic.glsl');
         material.Shader = shaderProgram;
+        material.color = [0.2, 0.2, 0.8, 1.0];
+
+
+        const material_2 = new Material();
+        //  const shaderProgram_2 = await material_2.getShaderProgram(this.gl, '/src/shaders/vs_basic.glsl', '/src/shaders/fs_basic.glsl');
+        material_2.Shader = await material_2.getShaderProgram(this.gl, '/src/shaders/vs_basic.glsl', '/src/shaders/fs_basic.glsl');
+        material_2.color = [1.0, 0.5, 0.0, 1.0];
+
+        const material_3 = new Material();
+        //  const shaderProgram_2 = await material_2.getShaderProgram(this.gl, '/src/shaders/vs_basic.glsl', '/src/shaders/fs_basic.glsl');
+        material_3.Shader = await material_3.getShaderProgram(this.gl, '/src/shaders/vs_basic.glsl', '/src/shaders/fs_basic.glsl');
+        material_3.color = [0.0, 0.5, 0.0, 1.0];
         // const shaderProgram = await createPromiseShaderProgram(this.gl, 'resource/shaders/vs_basic.glsl', 'resource/shaders/fs_basic.glsl');
         // this.gl.useProgram(shaderProgram); loadJSON(gl, 'resource/Model.json')
         const meshLoader = new MeshLoader();
@@ -75,9 +87,8 @@ export default class RenderLoop {
         const model = new Model();
         model.Mesh = mesh.meshes[0];
         model.Material = material;
-        model.positionSet(0.5, -0.5, 0.0);
-
-
+        model.positionSet([-0.5, 0.5, 0.0]);
+        model.rotationSet([0.0, 0.0, 0.5]);
 
         mesh_1.meshes[0].vertices = [
             -0.0, 0.5, 0.0,
@@ -87,8 +98,8 @@ export default class RenderLoop {
 
         const model_1 = new Model();
         model_1.Mesh = mesh_1.meshes[0];
-        model_1.Material = material;
-        model_1.positionSet(0.5, 0.5, 0.0);
+        model_1.Material = material_2;
+        model_1.positionSet([0.5, 0.5, 0.0]);
 
 
         mesh_2.meshes[0].vertices = [
@@ -99,8 +110,9 @@ export default class RenderLoop {
 
         const model_2 = new Model();
         model_2.Mesh = mesh_2.meshes[0];
-        model_2.Material = material;
-        model_2.positionSet(0.0, 0.5, 0.0);
+        model_2.Material = material_3;
+        model_2.positionSet([0.0, -0.5, 0.0]);
+        model_2.rotationSet([0.0, 0.0, 0.5]);
 
         const scene = new Scene();
         await scene.addModel(this.gl, model);
@@ -108,7 +120,18 @@ export default class RenderLoop {
         await scene.addModel(this.gl, model_2);
         //scene.Material = material;
 
-        scene.draw(this.gl);
+        //scene.draw(this.gl);
+        scene.gl = this.gl;
+
+        const animate = function () {
+            requestAnimationFrame(animate);
+
+            model_1.rotationSet([0.0, 0.0, 0.01]);
+            model_2.rotationSet([0.0, 0.01, 0.01]);
+            model.rotationSet([0.01, 0.0, -0.01]);
+            scene.draw(scene.gl);
+        };
+        animate();
         ////////////////////////////////////
     }
 

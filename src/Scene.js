@@ -47,10 +47,13 @@ export default class Scene {
             let u_mMatrix = gl.getUniformLocation(shaderProgram, 'u_mMatrix');
             let u_vMatrix = gl.getUniformLocation(shaderProgram, 'u_vMatrix');
             let u_pMatrix = gl.getUniformLocation(shaderProgram, 'u_pMatrix');
+            let u_Color = gl.getUniformLocation(shaderProgram, 'u_Color');
+
 
             gl.uniformMatrix4fv(u_mMatrix, false, mMatrix);
             gl.uniformMatrix4fv(u_vMatrix, false, vMatrix);
             gl.uniformMatrix4fv(u_pMatrix, false, pMatrix);
+            gl.uniform4fv(u_Color, material.color);
 
             let a_Position = gl.getAttribLocation(shaderProgram, 'a_Position');
             gl.enableVertexAttribArray(a_Position);
