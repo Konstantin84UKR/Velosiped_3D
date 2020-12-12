@@ -1,5 +1,5 @@
 
-import Camera from './Camera.js';
+import Camera, { vec3 } from './Camera.js';
 import Material from './Material.js';
 import MeshLoader from './MeshLoader.js';
 import Model from './Model.js';
@@ -64,6 +64,7 @@ export default class RenderLoop {
         // const mesh2 = await meshLoader.LoadJSONUsingPromise('resource/model_normal_2.json');
         const mesh = await meshLoader.loadFirstTriangle(this.gl);
         const mesh_1 = await meshLoader.loadFirstTriangle(this.gl);
+        const mesh_2 = await meshLoader.loadFirstTriangle(this.gl);
 
         mesh.meshes[0].vertices = [
             -0.0, 0.5, 0.0,
@@ -74,23 +75,37 @@ export default class RenderLoop {
         const model = new Model();
         model.Mesh = mesh.meshes[0];
         model.Material = material;
+        model.positionSet(0.5, -0.5, 0.0);
 
 
 
         mesh_1.meshes[0].vertices = [
-            -0.9, -0.0, 0.0,
-            -0.5, -0.8, 0.0,
-            0.6, -0.6, 0.0,
+            -0.0, 0.5, 0.0,
+            -0.5, -0.5, 0.0,
+            0.5, -0.5, 0.0,
         ];
 
         const model_1 = new Model();
         model_1.Mesh = mesh_1.meshes[0];
         model_1.Material = material;
+        model_1.positionSet(0.5, 0.5, 0.0);
 
+
+        mesh_2.meshes[0].vertices = [
+            -0.0, 0.5, 0.0,
+            -0.5, -0.5, 0.0,
+            0.5, -0.5, 0.0,
+        ];
+
+        const model_2 = new Model();
+        model_2.Mesh = mesh_2.meshes[0];
+        model_2.Material = material;
+        model_2.positionSet(0.0, 0.5, 0.0);
 
         const scene = new Scene();
         await scene.addModel(this.gl, model);
         await scene.addModel(this.gl, model_1);
+        await scene.addModel(this.gl, model_2);
         //scene.Material = material;
 
         scene.draw(this.gl);

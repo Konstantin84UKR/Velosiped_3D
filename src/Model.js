@@ -1,9 +1,15 @@
+
+import * as vec3 from "./glm/vec3.js";
+import * as mat4 from "./glm/mat4.js";
+
 export default class Model {
 
     constructor(gl) {
         this.gl = gl;
         this.mesh = [];
         this.material = [];
+        this.position = vec3.create();
+        //this.mMatrix = mat4.create();
     }
 
     set Mesh(m) {
@@ -12,6 +18,15 @@ export default class Model {
 
     set Material(m) {
         this.material.push(m);
+    }
+    positionSet(x, y, z) {
+        vec3.set(this.position, x, y, z);
+        //this.position = ;
+    }
+    mMatrix() {
+        let mMatrix = mat4.create();
+        mat4.translate(mMatrix, mMatrix, this.position);
+        return mMatrix;
     }
 
     loadBuffer(gl, meshes) {

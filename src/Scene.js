@@ -1,4 +1,6 @@
 import MeshLoader from './MeshLoader.js';
+import * as mat4 from "./glm/mat4.js";
+import * as vec3 from "./glm/vec3.js";
 
 export default class Scene {
 
@@ -36,8 +38,19 @@ export default class Scene {
             let material = model.material[0];
             let shaderProgram = material.shader[0];
             let modelBuffer = model.modelBuffer;
+            let mMatrix = model.mMatrix();
+            let vMatrix = mat4.create();
+            let pMatrix = mat4.create();
 
             gl.useProgram(shaderProgram);
+
+            let u_mMatrix = gl.getUniformLocation(shaderProgram, 'u_mMatrix');
+            let u_vMatrix = gl.getUniformLocation(shaderProgram, 'u_vMatrix');
+            let u_pMatrix = gl.getUniformLocation(shaderProgram, 'u_pMatrix');
+
+            gl.uniformMatrix4fv(u_mMatrix, false, mMatrix);
+            gl.uniformMatrix4fv(u_vMatrix, false, vMatrix);
+            gl.uniformMatrix4fv(u_pMatrix, false, pMatrix);
 
             let a_Position = gl.getAttribLocation(shaderProgram, 'a_Position');
             gl.enableVertexAttribArray(a_Position);
