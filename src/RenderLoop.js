@@ -126,9 +126,10 @@ export default class RenderLoop {
         const animate = function () {
             requestAnimationFrame(animate);
 
-            model_1.rotationSet([0.0, 0.0, 0.01]);
-            model_2.rotationSet([0.0, 0.01, 0.01]);
-            model.rotationSet([0.01, 0.0, -0.01]);
+            model.rotationSet([0.01, 0.0, -0.00]);
+            model_1.rotationSet([0.0, 0.001, 0.01]);
+            model_2.rotationSet([0.0, -0.01, 0.0]);
+
             scene.draw(scene.gl);
         };
         animate();

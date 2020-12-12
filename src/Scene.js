@@ -29,7 +29,10 @@ export default class Scene {
     draw(gl) {
 
         gl.clearColor(0.5, 0.5, 0.5, 1.0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
+        gl.enable(gl.DEPTH_TEST);
+        //gl.enable(gl.CULL_FACE);
+        gl.depthFunc(gl.LESS);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         this.model.forEach(element => {
 
