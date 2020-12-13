@@ -5,7 +5,7 @@ import * as vec3 from "./glm/vec3.js";
 export default class Scene {
 
     constructor() {
-        this.model = [];
+        this.models = [];
         this.camera = [];
         this.lighting = [];
     }
@@ -23,7 +23,7 @@ export default class Scene {
     async addModel(gl, m) {
         //this.model.push(m);
         m.modelBuffer = await m.getBufferBasic(gl);
-        this.model.push(m);
+        this.models.push(m);
     }
 
     draw(gl) {
@@ -34,7 +34,7 @@ export default class Scene {
         gl.depthFunc(gl.LESS);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-        this.model.forEach(element => {
+        this.models.forEach(element => {
 
             // let model = this.model[0];
             let model = element;
