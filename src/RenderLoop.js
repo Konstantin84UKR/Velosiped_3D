@@ -83,7 +83,11 @@ export default class RenderLoop {
         const animate = function () {
             requestAnimationFrame(animate);
 
-            scene.models[0].rotationSet([0.01, 0.0, -0.00]);
+           scene.models.forEach(element => {
+                element.rotationSet(element.rotationAnime);
+            });    
+
+            // scene.models[0].rotationSet([0.01, 0.0, -0.00]);
             // scene.models[1].rotationSet([0.0, 0.001, 0.01]);
             // scene.models[2].rotationSet([0.0, -0.01, 0.0]);
 
