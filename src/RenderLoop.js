@@ -18,57 +18,36 @@ export default class RenderLoop {
     async initRender() {
 
         const material = new Material();
-        const shaderProgram = await material.getShaderProgram(this.gl, '/src/shaders/vs_basic2.glsl', '/src/shaders/fs_basic2.glsl');
+        const shaderProgram = await material.getShaderProgram(this.gl, '../src/shaders/vs_basic2.glsl', '../src/shaders/fs_basic2.glsl');
         material.Shader = shaderProgram;
         material.color = [0.2, 0.2, 0.8, 1.0];
 
 
         const material_2 = new Material();
-        //  const shaderProgram_2 = await material_2.getShaderProgram(this.gl, '/src/shaders/vs_basic.glsl', '/src/shaders/fs_basic.glsl');
-        material_2.Shader = await material_2.getShaderProgram(this.gl, '/src/shaders/vs_basic2.glsl', '/src/shaders/fs_basic2.glsl');
+        material_2.Shader = await material_2.getShaderProgram(this.gl, '../src/shaders/vs_basic2.glsl', './src/shaders/fs_basic2.glsl');
         material_2.color = [1.0, 0.5, 0.0, 1.0];
 
         const material_3 = new Material();
-        //  const shaderProgram_2 = await material_2.getShaderProgram(this.gl, '/src/shaders/vs_basic.glsl', '/src/shaders/fs_basic.glsl');
-        material_3.Shader = await material_3.getShaderProgram(this.gl, '/src/shaders/vs_basic2.glsl', '/src/shaders/fs_basic2.glsl');
+        material_3.Shader = await material_3.getShaderProgram(this.gl, '../src/shaders/vs_basic2.glsl', '../src/shaders/fs_basic2.glsl');
         material_3.color = [0.0, 0.8, 0.5, 1.0];
-        // const shaderProgram = await createPromiseShaderProgram(this.gl, 'resource/shaders/vs_basic.glsl', 'resource/shaders/fs_basic.glsl');
-        // this.gl.useProgram(shaderProgram); loadJSON(gl, 'resource/Model.json')
+      
         const meshLoader = new MeshLoader();
-        // const mesh2 = await meshLoader.LoadJSONUsingPromise('resource/model_normal_2.json');
         const mesh = await meshLoader.loadFirstTriangle(this.gl);
         const mesh_1 = await meshLoader.loadFirstTriangle(this.gl);
         const mesh_2 = await meshLoader.loadFirstTriangle(this.gl);
-
-        mesh.meshes[0].vertices = [
-            -0.0, 0.5, 0.0,
-            -0.5, -0.5, 0.0,
-            0.5, -0.5, 0.0,
-        ];
-
+  
         const model = new Model();
         model.Mesh = mesh.meshes[0];
         model.Material = material;
         model.positionSet([-0.5, 0.5, 0.0]);
         model.rotationSet([0.0, 0.0, 0.5]);
-
-        mesh_1.meshes[0].vertices = [
-            -0.0, 0.5, 0.0,
-            -0.5, -0.5, 0.0,
-            0.5, -0.5, 0.0,
-        ];
+  
 
         const model_1 = new Model();
         model_1.Mesh = mesh_1.meshes[0];
         model_1.Material = material_2;
         model_1.positionSet([0.5, 0.5, 0.2]);
-
-
-        mesh_2.meshes[0].vertices = [
-            -0.0, 0.5, 0.0,
-            -0.5, -0.5, 0.0,
-            0.5, -0.5, 0.0,
-        ];
+    
 
         const model_2 = new Model();
         model_2.Mesh = mesh_2.meshes[0];
@@ -114,7 +93,7 @@ export default class RenderLoop {
     }
 
 
-    async webGLStart() {
+    async webGLStart(width,height) {
 
         const canvas = document.body.appendChild(document.createElement('canvas'));
         //  const canvas = document.getElementById("canvasGL");
@@ -123,8 +102,8 @@ export default class RenderLoop {
             return;
         }
 
-        canvas.width = 800; //screen.width;
-        canvas.height = 600; //screen.height;
+        canvas.width = width; //screen.width;
+        canvas.height = height; //screen.height;
 
         this.canvas = canvas;
 

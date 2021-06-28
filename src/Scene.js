@@ -66,6 +66,8 @@ export default class Scene {
             gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, modelBuffer.TRIANGLE_FACES);
             gl.drawElements(gl.TRIANGLES, 3, gl.UNSIGNED_SHORT, 0);
             gl.flush();
+            gl.useProgram(null);
+
         });
 
 

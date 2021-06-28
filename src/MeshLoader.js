@@ -45,12 +45,12 @@ export default class MeshLoader {
             ModelVertices: [],
             faces: []
         };
-        // o.vertices = [
-        //     -0.0, 0.5, 0.0,
-        //     -0.5, -0.5, 0.0,
-        //     0.5, -0.5, 0.0,
-        // ];
-        o.vertices = this.v;
+        o.vertices = [
+            -0.0, 0.5, 0.0,
+            -0.5, -0.5, 0.0,
+            0.5, -0.5, 0.0,
+        ];
+       // o.vertices = this.v;
         o.faces = [
             0, 1, 2
         ];
