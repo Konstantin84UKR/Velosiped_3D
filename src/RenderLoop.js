@@ -79,19 +79,18 @@ export default class RenderLoop {
         ////////////////////////////////////
     }
 
-    async draw(scene) {
+    async draw(gl,scene) {
         const animate = function () {
             requestAnimationFrame(animate);
 
             scene.models[0].rotationSet([0.01, 0.0, -0.00]);
-            scene.models[1].rotationSet([0.0, 0.001, 0.01]);
-            scene.models[2].rotationSet([0.0, -0.01, 0.0]);
+            // scene.models[1].rotationSet([0.0, 0.001, 0.01]);
+            // scene.models[2].rotationSet([0.0, -0.01, 0.0]);
 
-            scene.draw(scene.gl);
+            scene.draw(gl);
         };
         await animate();
     }
-
 
     async webGLStart(width,height) {
 
@@ -122,5 +121,31 @@ export default class RenderLoop {
         return scene;
     }
 
+
+    async createTriangelModel(colorArr){
+
+        const model = new Model();
+
+         const material = new Material();
+         const shaderProgram = await material.getShaderProgram(this.gl, '../src/shaders/vs_basic2.glsl', '../src/shaders/fs_basic2.glsl');
+         material.Shader = shaderProgram;
+         material.color = colorArr;  
+
+         const meshLoader = new MeshLoader();
+         const mesh = await meshLoader.loadFirstTriangle(this.gl);
+        
+         model.Mesh = mesh.meshes[0];
+         model.Material = material;
+        //  model.positionSet([-0.5, 0.5, 0.0]);
+        //  model.rotationSet([0.0, 0.0, 0.5]);
+   
+
+        return model;
+    }
+
+    async createScene(){
+        const scene = new Scene();
+        return scene;
+    }
 
 }
